@@ -1,37 +1,25 @@
-const audioOne = [...document.querySelectorAll("audio")];
+const audios = [...document.querySelectorAll("audio")];
 const containerLetter = [...document.querySelectorAll("div")];
 
-const currentsAudios = audioOne.map((element) => {
+const currentsAudios = audios.map((element) => {
   return element.dataset.key;
 });
 
-document.addEventListener(
-  "keypress",
-  (event) => {
-    console.log(event);
-    const keyValue = event.key;
+document.addEventListener("keydown", (event) => {
+  const audioFound = findAudio(event);
+  audios[audioFound].currentTime = 0;
+  audios[audioFound].play();
+  containerLetter[audioFound].classList.add("playing");
+});
 
-    const findAudio = currentsAudios.findIndex((audioCurrentKey) => {
-      return audioCurrentKey === keyValue;
-    });
+document.addEventListener("keyup", (event) => {
+  const audioFound = findAudio(event);
+  containerLetter[audioFound].classList.remove("playing");
+});
 
-    audioOne[findAudio].currentTime = 0;
-    audioOne[findAudio].play();
-    containerLetter[findAudio].classList.add("playing");
-  },
-  false
-);
-
-document.addEventListener(
-  "keyup",
-  () => {
-    const keyValue = event.key;
-
-    const findAudio = currentsAudios.findIndex((audioCurrentKey) => {
-      return audioCurrentKey === keyValue;
-    });
-
-    containerLetter[findAudio].classList.remove("playing");
-  },
-  false
-);
+function findAudio(event) {
+  const keyValue = event.key;
+  return currentsAudios.findIndex(
+    (audioCurrentKey) => audioCurrentKey === keyValue
+  );
+}
