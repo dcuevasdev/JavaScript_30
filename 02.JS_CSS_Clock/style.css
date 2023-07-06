@@ -40,16 +40,7 @@ body {
   background: black;
   position: absolute;
   top: 50%;
-}
-.hour-hand {
   transform: rotate(90deg);
-  transform-origin: right;
-}
-.min-hand {
-  transform: rotate(90deg);
-  transform-origin: right;
-}
-.second-hand {
-  transform: rotate(40deg);
-  transform-origin: right;
+  transform-origin: 100%;
+  transition-timing-function: ea;
 }
